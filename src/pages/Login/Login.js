@@ -1,6 +1,6 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 import styled from "styled-components";
-import Fondo from "../../images/fondo.png";
 
 const Main = styled.main`
   display: flex;
@@ -44,15 +44,15 @@ const SectionLogIn = styled.section`
 const SectionButtons = styled.section`
   display: flex;
   margin-top: 15px;
+  justify-content: space-between;
 
   button {
-    width: 100%;
-    padding: 20px;
-    margin: 5px;
-    border-radius: 5px;
-    border: none;
-    background-color: rgba(23, 23, 23, 0.723);
-    color: white;
+  width: 100%;
+  padding: 20px;
+  border-radius: 5px;
+  border: none;
+  background-color: rgba(23, 23, 23, 0.723);
+  color: white;
   }
 `;
 
@@ -68,6 +68,9 @@ const SectionRegister = styled.section`
   }
 `;
 
+const NavL = styled(NavLink)`
+  width: 45%;
+`
 const Login = () => {
   return (
     <Main>
@@ -79,8 +82,8 @@ const Login = () => {
           <Input placeholder="Contraseña" />
 
           <SectionButtons>
-            <button>Google</button>
-            <button>Ingresar</button>
+            <NavL to={'/home'}><button>Google</button></NavL>
+            <NavL to={'/home'}><button>Ingresar</button></NavL>
           </SectionButtons>
         </SectionLogIn>
 
@@ -94,3 +97,14 @@ const Login = () => {
 };
 
 export default Login;
+
+/* 
+button {
+  width: 100%;
+  padding: 20px;
+  margin: 5px;
+  border-radius: 5px;
+  border: none;
+  background-color: rgba(23, 23, 23, 0.723);
+  color: white;
+} */

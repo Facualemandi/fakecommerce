@@ -1,8 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
-import React from "react";
+import React, { useState } from "react";
+import Products from "../../components/Products/Products";
+import Search from "../../components/Search/Search";
 import { helpHttp } from "../../helper/helphttps";
 
 const Home = () => {
+  const [value, setValue] = useState('');
+
   const API_URL = "https://coding-challenge-api.aerolab.co/products";
 
   const options = {
@@ -15,7 +19,7 @@ const Home = () => {
 
   const getProducts = async () => {
     const response = await Promise.all([helpHttp().get(API_URL, options)]);
-    return response;
+    return response[0];
   };
 
   const { data, status } = useQuery(["products"], getProducts);
@@ -25,10 +29,14 @@ const Home = () => {
   } else {
     console.log(data);
   }
+  
+
+  const searchProduct = data.filter(obj => obj.name.toLowerCase().includes(value.toLowerCase()));
 
   return (
     <main>
-      <p>Facu</p>
+      <Search setValue={setValue}/>
+      <Products searchProduct={searchProduct}/>
     </main>
   );
 };
