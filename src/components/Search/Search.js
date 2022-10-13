@@ -44,11 +44,12 @@ const Select = styled.select`
     display: none;
   }
 `;
-const Search = ({setValue}) => {
+const Search = ({ setValue }) => {
 
-    const filterProduct = (e) => {
-        setValue(e.target.value)
-    }
+  const filterProduct = (e) => {
+    setValue(e.target.value);
+  };
+
   return (
     <section>
       <DivImg>
@@ -57,18 +58,25 @@ const Search = ({setValue}) => {
       </DivImg>
 
       <div>
-        <Input type={"text"} onChange={filterProduct} placeholder="Ingrese el nombre del producto" />
+        <Input
+          type={"text"}
+          onChange={filterProduct}
+          placeholder="Ingrese el nombre del producto"
+        />
       </div>
 
-      <Select>
-        <option>Opcion</option>
-        <option>Opcion</option>
-        <option>Opcion</option>
-        <option>Opcion</option>
-        <option>Opcion</option>
-        <option>Opcion</option>
-        <option>Opcion</option>
-        <option>Opcion</option>
+      <Select onChange={filterProduct}>
+        <option value={""}>Ver Todo</option>
+        <option value={"Laptops"}>Laptops</option>
+        <option value={"Cameras"}>Cameras</option>
+        <option value={"Phones"}>Phones</option>
+        <option value={"Phone Accessories"}>Phone Accessories</option>
+        <option value={"Smart Home"}>Smart Home</option>
+        <option value={"PC Accessories"}>PC Accessories</option>
+        <option value={"Gaming"}>Gaming</option>
+        <option value={"Audio"}>Audio</option>
+        <option value={"Tablets & E-Readers"}>Tablets & E-Readers</option>
+        <option value={"Drones"}>Drones</option>
       </Select>
     </section>
   );

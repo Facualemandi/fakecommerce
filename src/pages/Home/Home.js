@@ -31,7 +31,7 @@ const Home = () => {
   }
   
 
-  const searchProduct = data.filter(obj => obj.name.toLowerCase().includes(value.toLowerCase()));
+  const searchProduct = data.filter(obj => obj.name.toLowerCase().includes(value.toLowerCase()) || obj.category.toLowerCase().includes(value.toLowerCase())  );
 
   return (
     <main>
