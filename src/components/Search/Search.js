@@ -1,84 +1,56 @@
 import React from "react";
 import styled from "styled-components";
-import Aerolab from "../../images/aerolab.png";
-
-const Img = styled.img`
-  width: 100%;
-  z-index: 100;
-`;
-
-const P = styled.p`
-  font-size: 12vw;
-  font-weight: bold;
-  font-family: "Roboto", sans-serif;
-  position: absolute;
-  bottom: 5px;
-  left: 5px;
-  z-index: 500;
-  color: white;
-`;
-const DivImg = styled.div`
-  height: auto;
-  position: relative;
-`;
 
 const Input = styled.input`
   padding: 15px;
-  border: 1px solid grey;
+  border: 1px solid rgba(188, 188, 188, 0.337);
+   outline-color: rgba(0, 255, 255, 0.304);
   border-radius: 5px;
   width: 95vw;
   display: flex;
   margin: auto;
-`;
-
-const Select = styled.select`
-  padding: 15px;
-  border: 1px solid grey;
-  border-radius: 5px;
-  width: 95vw;
-  display: flex;
-  margin: auto;
-  margin-top: 10px;
 
   @media (min-width: 780px) {
-    display: none;
+      width: 580px;
+      margin: 0;
+  }
+  @media (min-width: 1080px) {
+      width: 880px;
+  }
+  @media (min-width: 1380px) {
+      width: 1180px;
   }
 `;
-const Search = ({ setValue }) => {
 
+const Section = styled.section`
+  @media (min-width: 780px) {
+    display: flex;
+    flex-direction: row-reverse;
+    margin-right: 10px;
+    width: 780px;
+    margin: auto;
+    padding: 10px;
+  }
+  @media (min-width: 1080px) {
+    width: 1080px;
+  }
+  @media (min-width: 1380px) {
+    width: 1380px;
+  }
+`;
+
+const Search = ({ setValue }) => {
   const filterProduct = (e) => {
     setValue(e.target.value);
   };
-
   return (
-    <section>
-      <DivImg>
-        <Img alt="aerolab" src={Aerolab} />
-        <P>Electronics</P>
-      </DivImg>
-
-      <div>
-        <Input
-          type={"text"}
-          onChange={filterProduct}
-          placeholder="Ingrese el nombre del producto"
-        />
-      </div>
-
-      <Select onChange={filterProduct}>
-        <option value={""}>Ver Todo</option>
-        <option value={"Laptops"}>Laptops</option>
-        <option value={"Cameras"}>Cameras</option>
-        <option value={"Phones"}>Phones</option>
-        <option value={"Phone Accessories"}>Phone Accessories</option>
-        <option value={"Smart Home"}>Smart Home</option>
-        <option value={"PC Accessories"}>PC Accessories</option>
-        <option value={"Gaming"}>Gaming</option>
-        <option value={"Audio"}>Audio</option>
-        <option value={"Tablets & E-Readers"}>Tablets & E-Readers</option>
-        <option value={"Drones"}>Drones</option>
-      </Select>
-    </section>
+    <Section>
+      <Input
+        type={"text"}
+        onChange={filterProduct}
+        placeholder="Ingrese el nombre del producto"
+      />
+    </Section>
   );
 };
 
