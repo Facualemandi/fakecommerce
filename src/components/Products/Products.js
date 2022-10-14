@@ -157,6 +157,7 @@ const Question = styled.p`
   color: black;
   margin-top: 10px;
   font-weight: lighter;
+  padding: 10px;
 `;
 
 const DivButtons = styled.div`
@@ -172,6 +173,15 @@ const DivButtons = styled.div`
     border-radius: 5px;
     background-color: rgba(0, 204, 211, 0.805);
     font-size: 18px;
+
+    @media (min-width: 780px){
+      cursor: pointer;
+      &:hover{
+        background-color: rgba(1, 219, 227, 0.800);
+        box-shadow: 1px 1px 3px 0px rgba(0, 0, 0, 0.350);
+        transition: 0.3s;
+      }
+    }
   }
 `;
 

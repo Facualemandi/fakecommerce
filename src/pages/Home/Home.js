@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import React, { useState } from "react";
 import styled from "styled-components";
 import LoaderOne from "../../components/Loader/LoaderOne/LoaderOne";
+import MenuCart from "../../components/MenuCart/MenuCart";
 import Products from "../../components/Products/Products";
 import Search from "../../components/Search/Search";
 import Select from "../../components/Select/Select";
@@ -89,6 +90,7 @@ const Home = () => {
         <Select setValue={setValue} searchProduct={searchProduct} />
         <Products searchProduct={searchProduct} />
       </Container>
+      <MenuCart/>
     </Main>
   );
 };
