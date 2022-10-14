@@ -24,7 +24,7 @@ const P = styled.p`
   position: absolute;
   bottom: 5px;
   left: 5px;
-  z-index: 500;
+  z-index: 120;
   color: white;
 `;
 const DivImg = styled.div`

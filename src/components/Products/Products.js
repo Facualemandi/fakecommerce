@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from "framer-motion";
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import NoSearch from "../../images/nosearch.png";
 import BlueBuy from "../../images/buy-blue.svg";
@@ -106,68 +106,154 @@ const DivPoints = styled.div`
   align-items: center;
   text-align: center;
 
-  p{
+  p {
     font-size: 30px;
     color: white;
   }
 `;
 
 const Reedem = styled.p`
-font-size: 20px;
-border-radius: 30px;
-padding: 10px;
-background-color: rgba(0, 0, 0, 0.600);
-color: white;
-font-weight: lighter;
-margin-top: 15px;
-`
+  font-size: 20px;
+  border-radius: 30px;
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+  font-weight: lighter;
+  margin-top: 15px;
+`;
 
 const Name = styled.p`
-font-size: 22px;
-font-weight: lighter;
-padding: 10px;
-margin-top: 15px;
+  font-size: 18px;
+  font-weight: lighter;
+  padding: 10px;
+  margin-top: 15px;
+`;
+
+const OpenProduct = styled.section`
+  position: fixed;
+  top: 0px;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+`;
+
+const ImgView = styled.img`
+  width: 100%;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+`;
+
+const Question = styled.p`
+  font-family: "Roboto", sans-serif;
+  font-size: 22px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: black;
+  margin-top: 10px;
+  font-weight: lighter;
+`;
+
+const DivButtons = styled.div`
+  display: flex;
+  padding: 5px;
+  margin-top: 15px;
+
+  button {
+    padding: 15px;
+    width: 100%;
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
+    background-color: rgba(0, 204, 211, 0.805);
+    font-size: 18px;
+  }
+`;
+
+const ContainerProdcut = styled.section`
+margin: 15px;
+border-radius: 10px;
+background-color: rgb(0, 247, 255);
+
 `
 
 const Products = ({ searchProduct }) => {
-  console.log(searchProduct);
+  const [viewProduct, setViewProduct] = useState({});
+  const [openProduct, setOpenProduct] = useState(false);
+
+  const getProduct = (product) => {
+    setViewProduct(product);
+    setOpenProduct(true);
+    console.log(product);
+  };
+
+  const closedProduct = () => {
+    setOpenProduct(false);
+  };
+
   return (
-    <AnimatePresence>
-      <Container>
-        {searchProduct.map((product) => (
-          <motion.div
-            key={product._id}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 1.3 }}
-          >
-            <SectionProduct key={product._id}>
-              <Img alt="" src={product.img.hdUrl} />
-              <Name>{product.name}</Name>
-              <DivHover>
-                <ImgAdd alt="Buy " src={BlueBuy} />
+    <>
+      <AnimatePresence>
+        <Container>
+          {searchProduct.map((product) => (
+            <motion.div
+              key={product._id}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 1.3 }}
+            >
+              <SectionProduct key={product._id}>
+                <Img alt="" src={product.img.hdUrl} />
+                <Name>{product.name}</Name>
+                <DivHover>
+                  <ImgAdd alt="Buy " src={BlueBuy} />
 
-                <DivContainer>
-                  <DivPoints>
-                    <p>{product.cost}</p>
-                    <img alt="" src={Coin} />
-                  </DivPoints>
-                  <Reedem>Reedem Now</Reedem>
-                </DivContainer>
-              </DivHover>
-            </SectionProduct>
-          </motion.div>
-        ))}
-      </Container>
+                  <DivContainer>
+                    <DivPoints>
+                      <p>{product.cost}</p>
+                      <img alt="" src={Coin} />
+                    </DivPoints>
+                    <Reedem onClick={() => getProduct(product)}>
+                      Reedem Now
+                    </Reedem>
+                  </DivContainer>
+                </DivHover>
+              </SectionProduct>
+            </motion.div>
+          ))}
+        </Container>
+        {searchProduct.length === 0 && (
+          <SectionNoProduct>
+            <ImgNoSearch alt="" src={NoSearch} />
+            <p>Producto no encontrado</p>
+          </SectionNoProduct>
+        )}
+      </AnimatePresence>
 
-      {searchProduct.length === 0 && (
-        <SectionNoProduct>
-          <ImgNoSearch alt="" src={NoSearch} />
-          <p>Producto no encontrado</p>
-        </SectionNoProduct>
+      {openProduct && (
+        <OpenProduct>
+          <ContainerProdcut>
+            <ImgView alt="" src={viewProduct.img.hdUrl} />
+
+            <Question>
+              Quieres agregar el producto {viewProduct.name} por{" "}
+              {viewProduct.cost} coins ?
+            </Question>
+
+            <DivButtons>
+              <button onClick={closedProduct}>Cerrar</button>
+              <button>Agregar</button>
+            </DivButtons>
+          </ContainerProdcut>
+        </OpenProduct>
       )}
-    </AnimatePresence>
+    </>
   );
 };
 
