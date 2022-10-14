@@ -10,27 +10,30 @@ export const useTheContext = () => {
 };
 
 export function ContextProvider({ children }) {
-    const API_USER = 'https://coding-challenge-api.aerolab.co/user/me'
-    const options = {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${process.env.REACT_APP_API_KEY}`,
-        },
-      };
+  const API_USER = "https://coding-challenge-api.aerolab.co/user/me";
+  const options = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${process.env.REACT_APP_API_KEY}`,
+    },
+  };
 
-    const getUser = async () => {
-          const response = await Promise.all([helpHttp().get(API_USER, options)]);
-          return response[0]
-    }
+  const getUser = async () => {
+    const response = await Promise.all([helpHttp().get(API_USER, options)]);
+    return response[0];
+  };
 
-    const {data, status} = useQuery(['user'], getUser);
+  const { data, status, refetch, isFetching } = useQuery(["user"], getUser);
 
-    if(status === 'loading'){
-        return <p>asd</p>
-    }else{
-        console.log(data)
-    }
-          
+  if (status === "loading") {
+    return <p>asd</p>;
+  } else {
+    console.log(data);
+  }
 
-  return <theContext.Provider value={{data}}>{children}</theContext.Provider>;
+  return (
+    <theContext.Provider value={{ data, refetch, isFetching }}>
+      {children}
+    </theContext.Provider>
+  );
 }

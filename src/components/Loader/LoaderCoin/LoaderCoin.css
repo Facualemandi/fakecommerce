@@ -1,0 +1,77 @@
+.loaderSpin, .loaderSpin:before, .loaderSpin:after {
+    border-radius: 50%;
+    width: 2.5em;
+    height: 2.5em;
+    animation-fill-mode: both;
+    animation: bblFadInOut 1.8s infinite ease-in-out;
+  }
+  .loaderSpin {
+    color: rgb(0, 225, 255);
+    font-size: 7px;
+    position: relative;
+    text-indent: -9999em;
+    transform: translateZ(0);
+    animation-delay: -0.16s;
+  }
+  .loaderSpin:before,
+  .loaderSpin:after {
+    content: '';
+    position: absolute;
+    top: 0;
+  }
+  .loaderSpin:before {
+    left: -3.5em;
+    animation-delay: -0.32s;
+  }
+  .loaderSpin:after {
+    left: 3.5em;
+  }
+  
+  @keyframes bblFadInOut {
+    0%, 80%, 100% { box-shadow: 0 2.5em 0 -1.3em }
+    40% { box-shadow: 0 2.5em 0 0 }
+  }
+
+
+
+
+
+
+/* 
+  .loaderCoin {
+    transform: translateZ(1px);
+  }
+  .loaderCoin:after {
+    content: '$';
+    display: inline-block;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    text-align: center;
+    line-height:40px;
+    font-size: 32px;
+    font-weight: bold;
+    background: #FFD700;
+    color: #DAA520;
+    border: 4px double ;
+    box-sizing: border-box;
+    box-shadow:  2px 2px 2px 1px rgba(0, 0, 0, .1);
+    animation: coin-flip 4s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+  }
+  @keyframes coin-flip {
+    0%, 100% {
+      animation-timing-function: cubic-bezier(0.5, 0, 1, 0.5);
+    }
+    0% {
+      transform: rotateY(0deg);
+    }
+    50% {
+      transform: rotateY(1800deg);
+      animation-timing-function: cubic-bezier(0, 0.5, 0.5, 1);
+    }
+    100% {
+      transform: rotateY(3600deg);
+    }
+  }
+        
+       */
