@@ -195,7 +195,7 @@ const ContainerProdcut = styled.section`
   backdrop-filter: blur(6px);
 `;
 
-const Products = ({ searchProduct }) => {
+const Products = ({ products }) => {
   const [viewProduct, setViewProduct] = useState({});
   const [openProduct, setOpenProduct] = useState(false);
   const { data, refetch } = useTheContext();
@@ -251,7 +251,7 @@ const Products = ({ searchProduct }) => {
     <>
       <AnimatePresence>
         <Container>
-          {searchProduct.map((product) => (
+          {products.map((product) => (
             <motion.div
               key={product._id}
               initial={{ opacity: 0 }}
@@ -279,7 +279,7 @@ const Products = ({ searchProduct }) => {
             </motion.div>
           ))}
         </Container>
-        {searchProduct.length === 0 && (
+        {products.length === 0 && (
           <SectionNoProduct>
             <ImgNoSearch alt="" src={NoSearch} />
             <p>Producto no encontrado</p>
