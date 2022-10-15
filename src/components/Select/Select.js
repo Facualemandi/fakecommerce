@@ -60,7 +60,6 @@ const Search = ({ setValue, searchProduct }) => {
   const filterProduct = (e) => {
     setValue(e.target.value);
   };
-
   const viewProductsCategory = (obj) => {
     setValue(obj);
     if (!selectColor) {
