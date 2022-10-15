@@ -27,8 +27,6 @@ export function ContextProvider({ children }) {
 
   if (status === "loading") {
     return <p>asd</p>;
-  } else {
-    console.log(data);
   }
 
   return (

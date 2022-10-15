@@ -4,6 +4,9 @@ import styled from "styled-components";
 import NoSearch from "../../images/nosearch.png";
 import BlueBuy from "../../images/buy-blue.svg";
 import Coin from "../../images/coin.svg";
+import { helpHttp } from "../../helper/helphttps";
+import { useTheContext } from "../../context/context";
+import Swal from "sweetalert2";
 
 const Img = styled.img`
   width: 100%;
@@ -154,10 +157,10 @@ const Question = styled.p`
   justify-content: center;
   align-items: center;
   text-align: center;
-  color: black;
   margin-top: 10px;
   font-weight: lighter;
   padding: 10px;
+  color: white;
 `;
 
 const DivButtons = styled.div`
@@ -171,14 +174,13 @@ const DivButtons = styled.div`
     margin: 5px;
     border: none;
     border-radius: 5px;
-    background-color: rgba(0, 204, 211, 0.805);
+    background-color: white;
     font-size: 18px;
 
-    @media (min-width: 780px){
+    @media (min-width: 780px) {
       cursor: pointer;
-      &:hover{
-        background-color: rgba(1, 219, 227, 0.800);
-        box-shadow: 1px 1px 3px 0px rgba(0, 0, 0, 0.350);
+      &:hover {
+        box-shadow: 1px 1px 3px 0px rgba(0, 0, 0, 0.35);
         transition: 0.3s;
       }
     }
@@ -186,24 +188,62 @@ const DivButtons = styled.div`
 `;
 
 const ContainerProdcut = styled.section`
-margin: 15px;
-border-radius: 10px;
-background-color: rgb(0, 247, 255);
-
-`
+  margin: 15px;
+  border-radius: 10px;
+  background-color: rgba(164, 164, 164, 0.501);
+  backdrop-filter: blur(6px);
+`;
 
 const Products = ({ searchProduct }) => {
   const [viewProduct, setViewProduct] = useState({});
   const [openProduct, setOpenProduct] = useState(false);
+  const { data, refetch } = useTheContext();
 
   const getProduct = (product) => {
     setViewProduct(product);
     setOpenProduct(true);
-    console.log(product);
   };
 
   const closedProduct = () => {
     setOpenProduct(false);
+  };
+
+  const addProductCart = async (productID) => {
+    const findProduct = data.redeemHistory.find(
+      (obj) => obj.productId === productID
+    );
+
+    if (data.redeemHistory.includes(findProduct)) {
+      return Swal.fire(
+        'Error',
+        'Este producto ya esta agregado en el carrito',
+        'error'
+      )
+    } else {
+      const API = "https://coding-challenge-api.aerolab.co/redeem";
+      const options = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${process.env.REACT_APP_API_KEY}`,
+        },
+
+        body: {
+          productId: productID,
+        },
+      };
+      const send = await Promise.all([helpHttp().post(API, options)]);
+      refetch();
+      setOpenProduct(false);
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: "Producto agregado",
+        showConfirmButton: false,
+        timer: 1000,
+      });
+
+      return send;
+    }
   };
 
   return (
@@ -258,7 +298,9 @@ const Products = ({ searchProduct }) => {
 
             <DivButtons>
               <button onClick={closedProduct}>Cerrar</button>
-              <button>Agregar</button>
+              <button onClick={() => addProductCart(viewProduct._id)}>
+                Agregar
+              </button>
             </DivButtons>
           </ContainerProdcut>
         </OpenProduct>

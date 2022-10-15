@@ -13,7 +13,7 @@ margin-bottom: 30px;
 const LoaderCoin = () => {
   return (
     <Div>
-      <span class="loaderSpin"></span>
+      <span className="loaderSpin"></span>
     </Div>
   );
 };
