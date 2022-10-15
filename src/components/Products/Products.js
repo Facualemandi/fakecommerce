@@ -251,37 +251,33 @@ const Products = ({ searchProduct }) => {
     <>
       <AnimatePresence>
         <Container>
-          {!searchProduct ? (
-            <p>Facu</p>
-          ) : (
-            searchProduct.map((product) => (
-              <motion.div
-                key={product._id}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 1.3 }}
-              >
-                <SectionProduct key={product._id}>
-                  <Img alt="" src={product.img.hdUrl} />
-                  <Name>{product.name}</Name>
-                  <DivHover>
-                    <ImgAdd alt="Buy " src={BlueBuy} />
+          {searchProduct.map((product) => (
+            <motion.div
+              key={product._id}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 1.3 }}
+            >
+              <SectionProduct key={product._id}>
+                <Img alt="" src={product.img.hdUrl} />
+                <Name>{product.name}</Name>
+                <DivHover>
+                  <ImgAdd alt="Buy " src={BlueBuy} />
 
-                    <DivContainer>
-                      <DivPoints>
-                        <p>{product.cost}</p>
-                        <img alt="" src={Coin} />
-                      </DivPoints>
-                      <Reedem onClick={() => getProduct(product)}>
-                        Reedem Now
-                      </Reedem>
-                    </DivContainer>
-                  </DivHover>
-                </SectionProduct>
-              </motion.div>
-            ))
-          )}
+                  <DivContainer>
+                    <DivPoints>
+                      <p>{product.cost}</p>
+                      <img alt="" src={Coin} />
+                    </DivPoints>
+                    <Reedem onClick={() => getProduct(product)}>
+                      Reedem Now
+                    </Reedem>
+                  </DivContainer>
+                </DivHover>
+              </SectionProduct>
+            </motion.div>
+          ))}
         </Container>
         {searchProduct.length === 0 && (
           <SectionNoProduct>

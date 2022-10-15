@@ -26,7 +26,7 @@ export function ContextProvider({ children }) {
   const { data, status, refetch, isFetching } = useQuery(["user"], getUser);
 
   if (status === "loading") {
-    return <p>asd</p>;
+    return ;
   }
 
   return (
