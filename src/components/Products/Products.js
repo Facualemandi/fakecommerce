@@ -16,6 +16,7 @@ const Container = styled.section`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   padding: 5px;
+  margin-bottom: 60px;
 
   @media (min-width: 780px) {
     grid-template-columns: repeat(3, 1fr);
@@ -215,10 +216,10 @@ const Products = ({ searchProduct }) => {
 
     if (data.redeemHistory.includes(findProduct)) {
       return Swal.fire(
-        'Error',
-        'Este producto ya esta agregado en el carrito',
-        'error'
-      )
+        "Error",
+        "Este producto ya esta agregado en el carrito",
+        "error"
+      );
     } else {
       const API = "https://coding-challenge-api.aerolab.co/redeem";
       const options = {
