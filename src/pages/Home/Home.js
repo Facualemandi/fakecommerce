@@ -71,13 +71,13 @@ const Home = () => {
     return <LoaderOne />;
   }
 
-  const searchProduct = data.filter(
+  let searchProduct = data.filter(
     (obj) =>
       obj.name.toLowerCase().includes(value.toLowerCase()) ||
       obj.category.toLowerCase().includes(value.toLowerCase())
   );
 
-  console.log(searchProduct)
+  console.log(data)
 
   return (
     <Main>
