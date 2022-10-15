@@ -77,6 +77,8 @@ const Home = () => {
       obj.category.toLowerCase().includes(value.toLowerCase())
   );
 
+  console.log(searchProduct)
+
   return (
     <Main>
       <DivImg>
