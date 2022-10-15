@@ -15,6 +15,7 @@ const Contianer = styled.section`
   background-color: white;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 10px;
   z-index: 10000;
 
@@ -35,6 +36,7 @@ const DivPoints = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-right: 30px;
 
   p {
     font-family: "Roboto", sans-serif;
@@ -55,7 +57,7 @@ const SectionCart = styled.section`
   z-index: 5000;
   overflow-y: scroll;
 
-  @media (max-width: 780px){
+  @media (max-width: 780px) {
     max-height: 600px;
   }
 
@@ -109,6 +111,18 @@ const ImgCart = styled.img`
   height: 60px;
 `;
 
+const Name = styled.p`
+  font-size: 20px;
+  font-weight: bold;
+  margin-right: 30px;
+`;
+
+const SectionUser = styled.section`
+display: flex;
+justify-content: center;
+align-items: center;
+`
+
 const MenuCart = () => {
   const [openCart, setOpenCart] = useState(false);
   const { data, refetch, isFetching } = useTheContext();
@@ -139,23 +153,27 @@ const MenuCart = () => {
     }
   };
 
+
   return (
     <>
       <Contianer>
         <img alt="aerolab" src={icon} />
 
-        <DivPoints>
-          {isFetching ? (
-            <LoaderCoin />
-          ) : (
-            <>
-              <p>{data.points}</p>
-              <img alt="coin" src={coin} onClick={AddCoins} />
-            </>
-          )}
-        </DivPoints>
+        <SectionUser>
+          <Name>{data.name}</Name>
+          <DivPoints>
+            {isFetching ? (
+              <LoaderCoin />
+            ) : (
+              <>
+                <p>{data.points}</p>
+                <img alt="coin" src={coin} onClick={AddCoins} />
+              </>
+            )}
+          </DivPoints>
 
-        <Cart onClick={openMenuCart} />
+          <Cart onClick={openMenuCart} />
+        </SectionUser>
       </Contianer>
 
       <SectionCart value={openCart}>

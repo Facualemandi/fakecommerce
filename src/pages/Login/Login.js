@@ -98,13 +98,3 @@ const Login = () => {
 
 export default Login;
 
-/* 
-button {
-  width: 100%;
-  padding: 20px;
-  margin: 5px;
-  border-radius: 5px;
-  border: none;
-  background-color: rgba(23, 23, 23, 0.723);
-  color: white;
-} */

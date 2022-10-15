@@ -92,13 +92,7 @@ const Search = ({ setValue, searchProduct }) => {
       <Ul>
         <li onClick={cleanInput}>Ver todo</li>
         {category.map((obj) => (
-          <li
-            key={obj}
-            value={selectColor}
-            onClick={() => viewProductsCategory(obj)}
-          >
-            {obj}
-          </li>
+          <li key={obj} value={selectColor} onClick={() => viewProductsCategory(obj)}>{obj}</li>
         ))}
       </Ul>
     </section>
