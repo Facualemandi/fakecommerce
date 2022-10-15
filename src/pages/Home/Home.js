@@ -65,17 +65,17 @@ const Home = () => {
     return response[0];
   };
 
-  const { data: products, status } = useQuery(["products"], getProducts);
+  const { data , status } = useQuery(["products"], getProducts);
 
   if (status === "loading") {
     return <LoaderOne />;
   }
 
-/*   const searchProduct = data.filter(
+  const searchProduct = data.filter(
     (obj) =>
       obj.name.toLowerCase().includes(value.toLowerCase()) ||
       obj.category.toLowerCase().includes(value.toLowerCase())
-  ); */
+  );
 
   return (
     <Main>
@@ -87,8 +87,8 @@ const Home = () => {
       <Search setValue={setValue} />
 
       <Container>
-        <Select setValue={setValue} products={products} />
-        <Products products={products} />
+        <Select setValue={setValue}/>
+        <Products searchProduct={searchProduct} />
       </Container>
       <MenuCart/>
     </Main>

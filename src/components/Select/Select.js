@@ -54,7 +54,7 @@ const Ul = styled.ul`
   }
 `;
 
-const Search = ({ setValue, products }) => {
+const Search = ({ setValue }) => {
   const [selectColor, setSelectColor] = useState(true);
 
   const filterProduct = (e) => {
