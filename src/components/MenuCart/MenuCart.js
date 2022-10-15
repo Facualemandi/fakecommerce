@@ -30,6 +30,10 @@ const Cart = styled(RiShoppingCartFill)`
 
   @media (min-width: 780px) {
     cursor: pointer;
+    &:hover{
+      color:  rgb(69, 202, 255);
+      transition: 0.5s;
+    }
   }
 `;
 const DivPoints = styled.div`
