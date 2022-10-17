@@ -127,6 +127,11 @@ justify-content: center;
 align-items: center;
 `
 
+const ImgCoin = styled.img`
+@media (min-width: 780px){
+  cursor: pointer;
+}
+`
 const MenuCart = () => {
   const [openCart, setOpenCart] = useState(false);
   const { data, refetch, isFetching } = useTheContext();
@@ -171,7 +176,7 @@ const MenuCart = () => {
             ) : (
               <>
                 <p>{data.points}</p>
-                <img alt="coin" src={coin} onClick={AddCoins} />
+                <ImgCoin alt="coin" src={coin} onClick={AddCoins} />
               </>
             )}
           </DivPoints>

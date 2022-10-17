@@ -194,6 +194,20 @@ const ContainerProdcut = styled.section`
   background-color: rgba(164, 164, 164, 0.501);
   backdrop-filter: blur(6px);
 `;
+const Category = styled.p`
+color: gray;
+font-weight: lighter;
+font-size: 14px;
+padding: 5px;
+padding-left: 10px;
+`
+
+const Hr = styled.hr`
+width: 80%;
+margin: auto;
+border-color: white;
+opacity: 0.3;
+`
 
 const Products = ({ searchProduct }) => {
   const [viewProduct, setViewProduct] = useState({});
@@ -261,7 +275,9 @@ const Products = ({ searchProduct }) => {
             >
               <SectionProduct key={product._id}>
                 <Img alt="" src={product.img.hdUrl} />
+                <Hr/>
                 <Name>{product.name}</Name>
+                <Category>{product.category}</Category>
                 <DivHover>
                   <ImgAdd alt="Buy " src={BlueBuy} />
 
