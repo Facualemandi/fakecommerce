@@ -72,7 +72,7 @@ const ViewAll = styled.li`
   }
 `;
 
-const Search = ({ setValue, LowestProducts, setLowestProducts }) => {
+const Search = ({ setValue }) => {
   const [selectColor, setSelectColor] = useState(true);
 
   const filterProduct = (e) => {
@@ -84,10 +84,6 @@ const Search = ({ setValue, LowestProducts, setLowestProducts }) => {
   const cleanInput = () => {
     setValue("");
     setSelectColor(true);
-
-    if (LowestProducts.length > 0) {
-      setLowestProducts([]);
-    }
     const allFalseCaategory = category.map((obj) => (obj.validate = false));
     return allFalseCaategory;
   };
@@ -125,9 +121,7 @@ const Search = ({ setValue, LowestProducts, setLowestProducts }) => {
       </Select>
 
       <Ul>
-        <ViewAll onClick={cleanInput} value={selectColor}>
-          Ver todo
-        </ViewAll>
+        <ViewAll onClick={cleanInput} value={selectColor}>Ver todo</ViewAll>
         {category.map((obj) => (
           <section key={obj.name} onClick={() => selectInDesktop(obj)}>
             <Li

@@ -41,11 +41,11 @@ const Section = styled.section`
 
 const SectionPrice = styled.select`
   background-color: white;
-@media (max-width: 780px){
-  width: 95vw;
-  display: flex;
-  margin: auto;
-}
+  @media (max-width: 780px) {
+    width: 95vw;
+    display: flex;
+    margin: auto;
+  }
   width: 155px;
   padding: 15px;
   margin-right: 15px;
@@ -61,7 +61,7 @@ const SectionPrice = styled.select`
   }
 `;
 
-const Search = ({ setValue, setValueSelect, value }) => {
+const Search = ({ setValue, setValueSelect }) => {
   const filterProduct = (e) => {
     setValue(e.target.value);
   };
@@ -76,11 +76,11 @@ const Search = ({ setValue, setValueSelect, value }) => {
         type={"text"}
         onChange={filterProduct}
         placeholder="Ingrese el nombre del producto"
-        value={value}
       />
 
       <SectionPrice onChange={changeValueSelect}>
-        <option value={""}>Filtrar por precio</option>
+        <option>Filtrar por precio</option>
+        <option value={""}>Precios aleatorios</option>
         <option value={"Highest"}>Precio más alto</option>
         <option value={"Lowest"}>Precio más bajo</option>
       </SectionPrice>

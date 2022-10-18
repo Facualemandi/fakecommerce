@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import LoaderOne from "../../components/Loader/LoaderOne/LoaderOne";
@@ -49,7 +49,6 @@ const Container = styled.section`
 `;
 const Home = () => {
   const [value, setValue] = useState("");
-  const [LowestProducts, setLowestProducts] = useState([]);
   const [valueSelect, setValueSelect] = useState("");
 
   const API_URL = "https://coding-challenge-api.aerolab.co/products";
@@ -71,51 +70,43 @@ const Home = () => {
     enabled: true,
   });
 
-  let searchProduct;
-
-  useEffect(() => {
-    if (valueSelect === "Lowest") {
-      const Lowest = searchProduct.sort((a, b) => {
-        if (a.cost < b.cost) {
-          return -1;
-        }
-        if (a.cost > b.cost) {
-          return 1;
-        }
-        return 0;
-      });
-      return setLowestProducts(Lowest);
-    }
-    if (valueSelect === "Highest") {
-      const Highest = searchProduct.sort((a, b) => {
-        if (a.cost > b.cost) {
-          return -1;
-        }
-        if (a.cost < b.cost) {
-          return 1;
-        }
-        return 0;
-      });
-      return setLowestProducts(Highest);
-    }
-  }, [valueSelect, LowestProducts.length]);
-
   if (status === "loading") {
     return <LoaderOne />;
   }
 
-  if (LowestProducts.length === 0) {
-    searchProduct = data.filter(
-      (obj) =>
-        obj.name.toLowerCase().includes(value.toLowerCase()) ||
-        obj.category.toLowerCase().includes(value.toLowerCase())
-    );
-  } else {
-    searchProduct = LowestProducts.filter(
-      (obj) =>
-        obj.name.toLowerCase().includes(value.toLowerCase()) ||
-        obj.category.toLowerCase().includes(value.toLowerCase())
-    );
+  let searchProduct = data.filter(
+    (obj) =>
+      obj.name.toLowerCase().includes(value.toLowerCase()) ||
+      obj.category.toLowerCase().includes(value.toLowerCase())
+  );
+
+  if (valueSelect.length > 0) {
+    if (valueSelect === "Lowest") {
+      searchProduct.sort((a, b) => {
+        if (a.cost < b.cost) {
+          return -1;
+        }
+        if (a.cost > b.cost) {
+          return 1;
+        }
+        return 0;
+      });
+    }
+
+    if (valueSelect === "Highest") {
+      searchProduct.sort((a, b) => {
+        if (a.cost > b.cost) {
+          return -1;
+        }
+        if (a.cost < b.cost) {
+          return 1;
+        }
+        return 0;
+      });
+    }
+    if (valueSelect === "") {
+      return searchProduct;
+    }
   }
 
   return (
@@ -125,18 +116,10 @@ const Home = () => {
         <P>Electronics</P>
       </DivImg>
 
-      <Search
-        setValue={setValue}
-        setValueSelect={setValueSelect}
-        value={value}
-      />
+      <Search setValue={setValue} setValueSelect={setValueSelect} />
 
       <Container>
-        <Select
-          setValue={setValue}
-          LowestProducts={LowestProducts}
-          setLowestProducts={setLowestProducts}
-        />
+        <Select setValue={setValue} />
         <Products searchProduct={searchProduct} />
       </Container>
       <MenuCart />
@@ -145,3 +128,39 @@ const Home = () => {
 };
 
 export default Home;
+
+/* useEffect(() => {
+  if (value === "all") {
+    setValue("");
+    setLowestProducts([]);
+    valueSelect.length > 0 ? setValueSelect(valueSelect) : setValueSelect("");
+  }
+
+  if (valueSelect === "Lowest") {
+    const Lowest = searchProduct.sort((a, b) => {
+      if (a.cost < b.cost) {
+        return -1;
+      }
+      if (a.cost > b.cost) {
+        return 1;
+      }
+      return 0;
+    });
+
+    return setLowestProducts(Lowest);
+  }
+  if (valueSelect === "Highest") {
+    const Highest = searchProduct.sort((a, b) => {
+      if (a.cost > b.cost) {
+        return -1;
+      }
+      if (a.cost < b.cost) {
+        return 1;
+      }
+      return 0;
+    });
+    return setLowestProducts(Highest);
+  }
+}, [valueSelect, searchProduct, value, data]);
+
+ */
