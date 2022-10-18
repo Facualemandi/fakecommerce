@@ -2,16 +2,16 @@ import React, { useState } from "react";
 import styled from "styled-components";
 
 const category = [
-  { name: "Laptops", validate: false, id: 1 },
-  { name: "Cameras", validate: false, id: 2 },
-  { name: "Phones", validate: false, id: 3 },
-  { name: "Phone Accessories", validate: false, id: 4 },
-  { name: "Smart Home", validate: false, id: 5 },
-  { name: "PC Accessories", validate: false },
-  { name: "Gaming", validate: false, id: 6 },
-  { name: "Audio", validate: false, id: 7 },
-  { name: "Tablets & E-Readers", validate: false, id: 8 },
-  { name: "Drones", validate: false, id: 9 },
+  { name: "Laptops", validate: false, id: 2 },
+  { name: "Cameras", validate: false, id: 3 },
+  { name: "Phones", validate: false, id: 4 },
+  { name: "Phone Accessories", validate: false, id: 5 },
+  { name: "Smart Home", validate: false, id: 6 },
+  { name: "PC Accessories", validate: false, id: 7 },
+  { name: "Gaming", validate: false, id: 8 },
+  { name: "Audio", validate: false, id: 9 },
+  { name: "Tablets & E-Readers", validate: false, id: 10 },
+  { name: "Drones", validate: false, id: 11 },
 ];
 
 const Select = styled.select`
@@ -61,8 +61,24 @@ const Li = styled.li`
   background-color: ${({ value }) => (value ? "aqua" : "#e2e8f0")};
 
   &:hover {
-    background-color: #d4deed;
+    background-color: ${({ value }) => (value ? "aqua" : "#d4deed")};
     cursor: pointer;
+    transition: 0.5s;
+  }
+`;
+
+const ViewAll = styled.li`
+  list-style: none;
+  padding: 15px;
+  font-family: "Roboto", sans-serif;
+  margin-top: 10px;
+  border-radius: 15px;
+  color: ${({ value }) => (value ? "black" : "gray")};
+  background-color: ${({ value }) => (value ? "aqua" : "#e2e8f0")};
+  @media (min-width: 780px){
+    cursor: pointer;
+    background-color: ${({value}) => !value ? '#e2e8f0' : 'aqua'};
+    color: black;
   }
 `;
 
@@ -74,14 +90,12 @@ const Search = ({ setValue, filterLowestToHighest, filterHigHestPrice }) => {
   };
   const viewProductsCategory = (obj) => {
     setValue(obj);
-    if (!selectColor) {
-      setSelectColor(true);
-    } else {
-      setSelectColor(false);
-    }
   };
   const cleanInput = () => {
     setValue("");
+    setSelectColor(true)
+    const allFalseCaategory = category.map((obj) => (obj.validate = false));
+    return allFalseCaategory;
   };
 
   const selectInDesktop = (obj) => {
@@ -89,8 +103,9 @@ const Search = ({ setValue, filterLowestToHighest, filterHigHestPrice }) => {
 
     if (objectValidateTrue) {
       objectValidateTrue.validate = false;
-    };
-
+    }
+    
+    setSelectColor(false)
     const findI = category.findIndex((element) => element.id === obj.id);
     const newObject = category;
     return {
@@ -124,7 +139,7 @@ const Search = ({ setValue, filterLowestToHighest, filterHigHestPrice }) => {
       </Select>
 
       <Ul>
-        <li onClick={cleanInput}>Ver todo</li>
+        <ViewAll onClick={cleanInput} value={selectColor} >Ver todo</ViewAll>
         {category.map((obj) => (
           <section key={obj.name} onClick={() => selectInDesktop(obj)}>
             <Li
