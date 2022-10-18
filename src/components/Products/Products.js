@@ -175,12 +175,14 @@ const DivButtons = styled.div`
     margin: 5px;
     border: none;
     border-radius: 5px;
-    background-color: white;
     font-size: 18px;
+    color: ${({ value }) => (value ? "black" : "gray")};
+    background-color: ${({ value }) => (value ? "aqua" : "#e2e8f0")};
 
     @media (min-width: 780px) {
       cursor: pointer;
       &:hover {
+        background-color: ${({ value }) => (value ? "aqua" : "#d4deed")};
         box-shadow: 1px 1px 3px 0px rgba(0, 0, 0, 0.35);
         transition: 0.3s;
       }
@@ -293,7 +295,7 @@ const Products = ({ searchProduct }) => {
 
       {openProduct && (
         <OpenProduct>
-          <ContainerProdcut>
+          <ContainerProdcut value={openProduct}>
             <ImgView alt="" src={viewProduct.img.hdUrl} />
 
             <Question>

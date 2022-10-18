@@ -40,7 +40,7 @@ const Section = styled.section`
 `;
 
 const SectionPrice = styled.select`
-  background-color: rgb(219, 219, 219);
+  background-color: white;
 @media (max-width: 780px){
   width: 95vw;
   display: flex;
