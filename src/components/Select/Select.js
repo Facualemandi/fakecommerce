@@ -107,7 +107,7 @@ const Search = ({ setValue }) => {
   return (
     <section>
       <Select onChange={filterProduct}>
-        <option value={"all"}>Ver Todo</option>
+        <option value={""}>Ver Todo</option>
         <option value={"Laptops"}>Laptops</option>
         <option value={"Cameras"}>Cameras</option>
         <option value={"Phones"}>Phones</option>
