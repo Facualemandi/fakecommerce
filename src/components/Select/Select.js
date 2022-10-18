@@ -2,16 +2,16 @@ import React, { useState } from "react";
 import styled from "styled-components";
 
 const category = [
-  "Laptops",
-  "Cameras",
-  "Phones",
-  "Phone Accessories",
-  "Smart Hom",
-  "PC Accessories",
-  "Gaming",
-  "Audio",
-  "Tablets & E-Readers",
-  "Drones",
+  { name: "Laptops", validate: false, id: 1 },
+  { name: "Cameras", validate: false, id: 2 },
+  { name: "Phones", validate: false, id: 3 },
+  { name: "Phone Accessories", validate: false, id: 4 },
+  { name: "Smart Home", validate: false, id: 5 },
+  { name: "PC Accessories", validate: false },
+  { name: "Gaming", validate: false, id: 6 },
+  { name: "Audio", validate: false, id: 7 },
+  { name: "Tablets & E-Readers", validate: false, id: 8 },
+  { name: "Drones", validate: false, id: 9 },
 ];
 
 const Select = styled.select`
@@ -37,24 +37,36 @@ const Ul = styled.ul`
     margin-top: 20px;
     border-radius: 5px;
     margin-left: 15px;
-
-    li {
-      list-style: none;
-      padding: 15px;
-      font-family: "Roboto", sans-serif;
-      margin-top: 10px;
-      background-color: #edf2f7;
-      border-radius: 5px;
-      &:hover {
-        background-color: #00d9ff3b;
-        transition: 0.5s;
-        cursor: pointer;
-      }
-    }
   }
 `;
 
-const Search = ({ setValue }) => {
+const SectionPrice = styled.section`
+  margin: 15px;
+  ul {
+    list-style: none;
+    li {
+      margin: 5px;
+      margin-top: 5px;
+    }
+  }
+`;
+const Li = styled.li`
+  list-style: none;
+  padding: 15px;
+  font-family: "Roboto", sans-serif;
+  margin-top: 10px;
+  background-color: #e2e8f0;
+  border-radius: 15px;
+  color: ${({ value }) => (value ? "black" : "gray")};
+  background-color: ${({ value }) => (value ? "aqua" : "#e2e8f0")};
+
+  &:hover {
+    background-color: #d4deed;
+    cursor: pointer;
+  }
+`;
+
+const Search = ({ setValue, filterLowestToHighest, filterHigHestPrice }) => {
   const [selectColor, setSelectColor] = useState(true);
 
   const filterProduct = (e) => {
@@ -72,8 +84,31 @@ const Search = ({ setValue }) => {
     setValue("");
   };
 
+  const selectInDesktop = (obj) => {
+    const objectValidateTrue = category.find((item) => item.validate === true);
+
+    if (objectValidateTrue) {
+      objectValidateTrue.validate = false;
+    };
+
+    const findI = category.findIndex((element) => element.id === obj.id);
+    const newObject = category;
+    return {
+      ...category,
+      ...(newObject[findI].validate = true),
+    };
+  };
+
   return (
     <section>
+      <SectionPrice>
+        <p>Ordenar Por</p>
+        <ul>
+          <li onClick={filterHigHestPrice}>Precio más alto</li>
+          <li onClick={filterLowestToHighest}>Precio más bajo</li>
+        </ul>
+      </SectionPrice>
+
       <Select onChange={filterProduct}>
         <option value={""}>Ver Todo</option>
         <option value={"Laptops"}>Laptops</option>
@@ -91,7 +126,14 @@ const Search = ({ setValue }) => {
       <Ul>
         <li onClick={cleanInput}>Ver todo</li>
         {category.map((obj) => (
-          <li key={obj} value={selectColor} onClick={() => viewProductsCategory(obj)}>{obj}</li>
+          <section key={obj.name} onClick={() => selectInDesktop(obj)}>
+            <Li
+              value={obj.validate}
+              onClick={() => viewProductsCategory(obj.name)}
+            >
+              {obj.name}
+            </Li>
+          </section>
         ))}
       </Ul>
     </section>
