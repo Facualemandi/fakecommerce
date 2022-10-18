@@ -195,19 +195,19 @@ const ContainerProdcut = styled.section`
   backdrop-filter: blur(6px);
 `;
 const Category = styled.p`
-color: gray;
-font-weight: lighter;
-font-size: 14px;
-padding: 5px;
-padding-left: 10px;
-`
+  color: gray;
+  font-weight: lighter;
+  font-size: 14px;
+  padding: 5px;
+  padding-left: 10px;
+`;
 
 const Hr = styled.hr`
-width: 80%;
-margin: auto;
-border-color: white;
-opacity: 0.3;
-`
+  width: 80%;
+  margin: auto;
+  border-color: white;
+  opacity: 0.3;
+`;
 
 const Products = ({ searchProduct }) => {
   const [viewProduct, setViewProduct] = useState({});
@@ -263,45 +263,33 @@ const Products = ({ searchProduct }) => {
 
   return (
     <>
-      <AnimatePresence>
-        <Container>
-          {searchProduct.map((product) => (
-            <motion.div
-              key={product._id}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 1.3 }}
-            >
-              <SectionProduct key={product._id}>
-                <Img alt="" src={product.img.hdUrl} />
-                <Hr/>
-                <Name>{product.name}</Name>
-                <Category>{product.category}</Category>
-                <DivHover>
-                  <ImgAdd alt="Buy " src={BlueBuy} />
+      <Container>
+        {searchProduct.map((product) => (
+          <SectionProduct key={product._id}>
+            <Img alt="" src={product.img.hdUrl} />
+            <Hr />
+            <Name>{product.name}</Name>
+            <Category>{product.category}</Category>
+            <DivHover>
+              <ImgAdd alt="Buy " src={BlueBuy} />
 
-                  <DivContainer>
-                    <DivPoints>
-                      <p>{product.cost}</p>
-                      <img alt="" src={Coin} />
-                    </DivPoints>
-                    <Reedem onClick={() => getProduct(product)}>
-                      Reedem Now
-                    </Reedem>
-                  </DivContainer>
-                </DivHover>
-              </SectionProduct>
-            </motion.div>
-          ))}
-        </Container>
-        {searchProduct.length === 0 && (
-          <SectionNoProduct>
-            <ImgNoSearch alt="" src={NoSearch} />
-            <p>Producto no encontrado</p>
-          </SectionNoProduct>
-        )}
-      </AnimatePresence>
+              <DivContainer>
+                <DivPoints>
+                  <p>{product.cost}</p>
+                  <img alt="" src={Coin} />
+                </DivPoints>
+                <Reedem onClick={() => getProduct(product)}>Reedem Now</Reedem>
+              </DivContainer>
+            </DivHover>
+          </SectionProduct>
+        ))}
+      </Container>
+      {searchProduct.length === 0 && (
+        <SectionNoProduct>
+          <ImgNoSearch alt="" src={NoSearch} />
+          <p>Producto no encontrado</p>
+        </SectionNoProduct>
+      )}
 
       {openProduct && (
         <OpenProduct>

@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import LoaderOne from "../../components/Loader/LoaderOne/LoaderOne";
 import MenuCart from "../../components/MenuCart/MenuCart";
@@ -50,9 +50,7 @@ const Container = styled.section`
 const Home = () => {
   const [value, setValue] = useState("");
   const [LowestProducts, setLowestProducts] = useState([]);
-  const [higHestPrice, setHigHestPrice] = useState([]);
-
-  
+  const [valueSelect, setValueSelect] = useState("");
 
   const API_URL = "https://coding-challenge-api.aerolab.co/products";
 
@@ -69,15 +67,47 @@ const Home = () => {
     return response[0];
   };
 
-  const { data, status, refetch } = useQuery(["products"], getProducts, {
+  const { data, status } = useQuery(["products"], getProducts, {
     enabled: true,
   });
+  let searchProduct;
+
+  useEffect(() => {
+    if (value === "all") {
+      setValue("");
+      setLowestProducts([]);
+      valueSelect.length > 0 ? setValueSelect(valueSelect) : setValueSelect("");
+    }
+
+    if (valueSelect === "Lowest") {
+      const Lowest = searchProduct.sort((a, b) => {
+        if (a.cost < b.cost) {
+          return -1;
+        }
+        if (a.cost > b.cost) {
+          return 1;
+        }
+        return 0;
+      });
+      return setLowestProducts(Lowest);
+    }
+    if (valueSelect === "Highest") {
+      const Highest = searchProduct.sort((a, b) => {
+        if (a.cost > b.cost) {
+          return -1;
+        }
+        if (a.cost < b.cost) {
+          return 1;
+        }
+        return 0;
+      });
+      return setLowestProducts(Highest);
+    }
+  }, [valueSelect, searchProduct, value]);
 
   if (status === "loading") {
     return <LoaderOne />;
   }
-
-  let searchProduct;
 
   if (LowestProducts.length === 0) {
     searchProduct = data.filter(
@@ -93,32 +123,6 @@ const Home = () => {
     );
   }
 
-  const filterLowestToHighest = () => {
-    const Lowest = searchProduct.sort((a, b) => {
-      if (a.cost < b.cost) {
-        return -1;
-      }
-      if (a.cost > b.cost) {
-        return 1;
-      }
-      return 0;
-    });
-    setLowestProducts(Lowest);
-  };
-
-  const filterHigHestPrice = () => {
-    const Lowest = searchProduct.sort((a, b) => {
-      if (a.cost > b.cost) {
-        return -1;
-      }
-      if (a.cost < b.cost) {
-        return 1;
-      }
-      return 0;
-    });
-    setLowestProducts(Lowest);
-  }
-
   return (
     <Main>
       <DivImg>
@@ -126,14 +130,10 @@ const Home = () => {
         <P>Electronics</P>
       </DivImg>
 
-      <Search setValue={setValue} />
+      <Search setValue={setValue} setValueSelect={setValueSelect} />
 
       <Container>
-        <Select
-          setValue={setValue}
-          filterLowestToHighest={filterLowestToHighest}
-          filterHigHestPrice={filterHigHestPrice}
-        />
+        <Select setValue={setValue} />
         <Products searchProduct={searchProduct} />
       </Container>
       <MenuCart />

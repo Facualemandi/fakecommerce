@@ -40,16 +40,6 @@ const Ul = styled.ul`
   }
 `;
 
-const SectionPrice = styled.section`
-  margin: 15px;
-  ul {
-    list-style: none;
-    li {
-      margin: 5px;
-      margin-top: 5px;
-    }
-  }
-`;
 const Li = styled.li`
   list-style: none;
   padding: 15px;
@@ -75,14 +65,14 @@ const ViewAll = styled.li`
   border-radius: 15px;
   color: ${({ value }) => (value ? "black" : "gray")};
   background-color: ${({ value }) => (value ? "aqua" : "#e2e8f0")};
-  @media (min-width: 780px){
+  @media (min-width: 780px) {
     cursor: pointer;
-    background-color: ${({value}) => !value ? '#e2e8f0' : 'aqua'};
+    background-color: ${({ value }) => (!value ? "#e2e8f0" : "aqua")};
     color: black;
   }
 `;
 
-const Search = ({ setValue, filterLowestToHighest, filterHigHestPrice }) => {
+const Search = ({ setValue }) => {
   const [selectColor, setSelectColor] = useState(true);
 
   const filterProduct = (e) => {
@@ -93,7 +83,7 @@ const Search = ({ setValue, filterLowestToHighest, filterHigHestPrice }) => {
   };
   const cleanInput = () => {
     setValue("");
-    setSelectColor(true)
+    setSelectColor(true);
     const allFalseCaategory = category.map((obj) => (obj.validate = false));
     return allFalseCaategory;
   };
@@ -104,8 +94,8 @@ const Search = ({ setValue, filterLowestToHighest, filterHigHestPrice }) => {
     if (objectValidateTrue) {
       objectValidateTrue.validate = false;
     }
-    
-    setSelectColor(false)
+
+    setSelectColor(false);
     const findI = category.findIndex((element) => element.id === obj.id);
     const newObject = category;
     return {
@@ -116,16 +106,8 @@ const Search = ({ setValue, filterLowestToHighest, filterHigHestPrice }) => {
 
   return (
     <section>
-      <SectionPrice>
-        <p>Ordenar Por</p>
-        <ul>
-          <li onClick={filterHigHestPrice}>Precio más alto</li>
-          <li onClick={filterLowestToHighest}>Precio más bajo</li>
-        </ul>
-      </SectionPrice>
-
       <Select onChange={filterProduct}>
-        <option value={""}>Ver Todo</option>
+        <option value={"all"}>Ver Todo</option>
         <option value={"Laptops"}>Laptops</option>
         <option value={"Cameras"}>Cameras</option>
         <option value={"Phones"}>Phones</option>
@@ -139,7 +121,9 @@ const Search = ({ setValue, filterLowestToHighest, filterHigHestPrice }) => {
       </Select>
 
       <Ul>
-        <ViewAll onClick={cleanInput} value={selectColor} >Ver todo</ViewAll>
+        <ViewAll onClick={cleanInput} value={selectColor}>
+          Ver todo
+        </ViewAll>
         {category.map((obj) => (
           <section key={obj.name} onClick={() => selectInDesktop(obj)}>
             <Li

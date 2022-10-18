@@ -8,7 +8,7 @@ const Input = styled.input`
   border-radius: 5px;
   width: 95vw;
   display: flex;
-  margin: auto;
+  margin: 5px auto;
 
   @media (min-width: 780px) {
     width: 580px;
@@ -39,9 +39,35 @@ const Section = styled.section`
   }
 `;
 
-const Search = ({ setValue }) => {
+const SectionPrice = styled.select`
+  background-color: rgb(219, 219, 219);
+@media (max-width: 780px){
+  width: 95vw;
+  display: flex;
+  margin: auto;
+}
+  width: 155px;
+  padding: 15px;
+  margin-right: 15px;
+  border: 1px solid rgba(188, 188, 188, 0.337);
+  border-radius: 5px;
+  outline-color: rgba(0, 255, 255, 0.304);
+  ul {
+    list-style: none;
+    li {
+      margin: 5px;
+      margin-top: 5px;
+    }
+  }
+`;
+
+const Search = ({ setValue, setValueSelect }) => {
   const filterProduct = (e) => {
     setValue(e.target.value);
+  };
+
+  const changeValueSelect = (e) => {
+    setValueSelect(e.target.value);
   };
 
   return (
@@ -51,6 +77,12 @@ const Search = ({ setValue }) => {
         onChange={filterProduct}
         placeholder="Ingrese el nombre del producto"
       />
+
+      <SectionPrice onChange={changeValueSelect}>
+        <option value={""}>Filtrar por precio</option>
+        <option value={"Highest"}>Precio más alto</option>
+        <option value={"Lowest"}>Precio más bajo</option>
+      </SectionPrice>
     </Section>
   );
 };
