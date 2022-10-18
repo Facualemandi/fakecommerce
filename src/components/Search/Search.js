@@ -61,7 +61,7 @@ const SectionPrice = styled.select`
   }
 `;
 
-const Search = ({ setValue, setValueSelect }) => {
+const Search = ({ setValue, setValueSelect, value }) => {
   const filterProduct = (e) => {
     setValue(e.target.value);
   };
@@ -76,6 +76,7 @@ const Search = ({ setValue, setValueSelect }) => {
         type={"text"}
         onChange={filterProduct}
         placeholder="Ingrese el nombre del producto"
+        value={value}
       />
 
       <SectionPrice onChange={changeValueSelect}>

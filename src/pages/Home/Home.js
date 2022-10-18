@@ -70,15 +70,10 @@ const Home = () => {
   const { data, status } = useQuery(["products"], getProducts, {
     enabled: true,
   });
+
   let searchProduct;
 
   useEffect(() => {
-    if (value === "all") {
-      setValue("");
-      setLowestProducts([]);
-      valueSelect.length > 0 ? setValueSelect(valueSelect) : setValueSelect("");
-    }
-
     if (valueSelect === "Lowest") {
       const Lowest = searchProduct.sort((a, b) => {
         if (a.cost < b.cost) {
@@ -103,7 +98,7 @@ const Home = () => {
       });
       return setLowestProducts(Highest);
     }
-  }, [valueSelect, searchProduct, value]);
+  }, [valueSelect, LowestProducts.length]);
 
   if (status === "loading") {
     return <LoaderOne />;
@@ -130,10 +125,18 @@ const Home = () => {
         <P>Electronics</P>
       </DivImg>
 
-      <Search setValue={setValue} setValueSelect={setValueSelect} />
+      <Search
+        setValue={setValue}
+        setValueSelect={setValueSelect}
+        value={value}
+      />
 
       <Container>
-        <Select setValue={setValue} />
+        <Select
+          setValue={setValue}
+          LowestProducts={LowestProducts}
+          setLowestProducts={setLowestProducts}
+        />
         <Products searchProduct={searchProduct} />
       </Container>
       <MenuCart />

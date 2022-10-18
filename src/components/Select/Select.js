@@ -72,7 +72,7 @@ const ViewAll = styled.li`
   }
 `;
 
-const Search = ({ setValue }) => {
+const Search = ({ setValue, LowestProducts, setLowestProducts }) => {
   const [selectColor, setSelectColor] = useState(true);
 
   const filterProduct = (e) => {
@@ -84,6 +84,10 @@ const Search = ({ setValue }) => {
   const cleanInput = () => {
     setValue("");
     setSelectColor(true);
+
+    if (LowestProducts.length > 0) {
+      setLowestProducts([]);
+    }
     const allFalseCaategory = category.map((obj) => (obj.validate = false));
     return allFalseCaategory;
   };
