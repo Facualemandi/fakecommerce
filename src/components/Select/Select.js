@@ -81,6 +81,7 @@ const Search = ({ setValue }) => {
   const viewProductsCategory = (obj) => {
     setValue(obj);
   };
+  
   const cleanInput = () => {
     setValue("");
     setSelectColor(true);
