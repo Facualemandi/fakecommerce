@@ -174,13 +174,15 @@ const DivButtons = styled.div`
     width: 100%;
     margin: 5px;
     border: none;
-    border-radius: 5px;
+    border-radius: 15px;
     background-color: white;
     font-size: 18px;
-
+    color: ${({ value }) => (value ? "black" : "gray")};
+    
     @media (min-width: 780px) {
       cursor: pointer;
       &:hover {
+        background-color: #e2e8f0;
         box-shadow: 1px 1px 3px 0px rgba(0, 0, 0, 0.35);
         transition: 0.3s;
       }
