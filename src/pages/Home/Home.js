@@ -19,7 +19,7 @@ const Img = styled.img`
 `;
 
 const P = styled.p`
-  font-size: 12vw;
+  font-size: 10vw;
   font-weight: bold;
   font-family: "Roboto", sans-serif;
   position: absolute;
